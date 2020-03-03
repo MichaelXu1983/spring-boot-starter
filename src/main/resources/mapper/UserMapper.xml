@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.user.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.user.model.User">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
+    <result column="psd" jdbcType="VARCHAR" property="psd" />
+    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
+    <result column="phone_no" jdbcType="VARCHAR" property="phoneNo" />
+    <result column="job_id" jdbcType="BIGINT" property="jobId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_name, staff_id, psd, dept_id, phone_no, job_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wp_user_info
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+    <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wp_user_info
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wp_user_info
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.user.model.User">
+    insert into wp_user_info (user_id, user_name, staff_id, 
+      psd, dept_id, phone_no, 
+      job_id)
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{staffId,jdbcType=VARCHAR}, 
+      #{psd,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{phoneNo,jdbcType=VARCHAR}, 
+      #{jobId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.user.model.User">
+    insert into wp_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="staffId != null">
+        staff_id,
+      </if>
+      <if test="psd != null">
+        psd,
+      </if>
+      <if test="deptId != null">
+        dept_id,
+      </if>
+      <if test="phoneNo != null">
+        phone_no,
+      </if>
+      <if test="jobId != null">
+        job_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="psd != null">
+        #{psd,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="phoneNo != null">
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null">
+        #{jobId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.user.model.User">
+    update wp_user_info
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="staffId != null">
+        staff_id = #{staffId,jdbcType=VARCHAR},
+      </if>
+      <if test="psd != null">
+        psd = #{psd,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null">
+        dept_id = #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="phoneNo != null">
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null">
+        job_id = #{jobId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.user.model.User">
+    update wp_user_info
+    set user_name = #{userName,jdbcType=VARCHAR},
+      staff_id = #{staffId,jdbcType=VARCHAR},
+      psd = #{psd,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=BIGINT},
+      phone_no = #{phoneNo,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=BIGINT}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>
